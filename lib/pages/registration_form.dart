@@ -2,8 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:pickit/themes/colors.dart';
 import 'package:pickit/widgets/basic_input.dart';
 
-class CarDetails extends StatelessWidget {
-  const CarDetails({ Key? key }) : super(key: key);
+class RegistrationForm extends StatelessWidget {
+  const RegistrationForm({ Key? key }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {

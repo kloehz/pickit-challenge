@@ -8,7 +8,7 @@ class HomePage extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(),
       floatingActionButton: FloatingActionButton(
-        onPressed: () => Navigator.pushNamed(context, 'carDetails'),
+        onPressed: () => Navigator.pushNamed(context, 'newCar'),
         child: const Icon(Icons.add),
       ),
       body: Container (
@@ -50,7 +50,7 @@ class _ItemContainer extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
-      onTap: () => {}, // Navigator.pushNamed(context, 'carDetails'),
+      onTap: () => Navigator.pushNamed(context, 'carDetails'),
       child: Container(
         decoration: BoxDecoration(
           color: Colors.white,

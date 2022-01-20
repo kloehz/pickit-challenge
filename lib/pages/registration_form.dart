@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:pickit/providers/owner_form.dart';
 import 'package:pickit/themes/colors.dart';
 import 'package:pickit/widgets/basic_input.dart';
+import 'package:provider/provider.dart';
 
 class RegistrationForm extends StatelessWidget {
   const RegistrationForm({ Key? key }) : super(key: key);
@@ -10,7 +12,10 @@ class RegistrationForm extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(),
       body: Theme(
-        child: const CarForm(),
+        child: ChangeNotifierProvider(
+          create: ( _ ) => OwnerProvider(),
+          child: const CarForm()
+        ),
         data: Theme.of(context).copyWith(
         colorScheme: const ColorScheme.light(
           primary: primaryColor,
@@ -30,14 +35,15 @@ class CarForm extends StatefulWidget {
 
 class _CarFormState extends State<CarForm> {
 
-  final _formKey = GlobalKey<FormState>();
-
   @override
   Widget build(BuildContext context) {
+
+    final ownerFormProvider = Provider.of<OwnerProvider>(context);
+
     return Container(
       padding: const EdgeInsets.symmetric(horizontal: 25, vertical: 20),
       child: Form(
-        key: _formKey,
+        key: ownerFormProvider.formKey,
         child: ListView(
           children: [
             const Text('Datos del propietario',
@@ -51,7 +57,7 @@ class _CarFormState extends State<CarForm> {
               icon: const Icon(Icons.person),
               validator: (String? value) {
                 if(value!.isEmpty){
-                  return 'Debe ingresar un nombre';
+                  return 'Ingrese un nombre';
                 }
               },
             ),
@@ -60,7 +66,7 @@ class _CarFormState extends State<CarForm> {
               icon: const Icon(Icons.person_outline_outlined),
               validator: (String? value) {
                 if(value!.isEmpty){
-                  return 'Debe ingresar un apellido';
+                  return 'Ingrese un apellido';
                 }
               },
             ),
@@ -83,7 +89,7 @@ class _CarFormState extends State<CarForm> {
               icon: const Icon(Icons.car_rental),
               validator: (String? value) {
                 if(value!.isEmpty){
-                  return 'Ingresar una marca';
+                  return 'Ingrese una marca';
                 }
               },
             ),
@@ -92,7 +98,7 @@ class _CarFormState extends State<CarForm> {
               icon: const Icon(Icons.car_repair_rounded),
               validator: (String? value) {
                 if(value!.isEmpty){
-                  return 'Ingresar el modelo';
+                  return 'Ingrese el modelo';
                 }
               },
             ),
@@ -101,7 +107,7 @@ class _CarFormState extends State<CarForm> {
               icon: const Icon(Icons.construction), inputType: TextInputType.number,
               validator: (String? value) {
                 if(value!.isEmpty){
-                  return 'Ingresar el año';
+                  return 'Ingrese el año';
                 }
               },
             ),
@@ -110,7 +116,7 @@ class _CarFormState extends State<CarForm> {
               icon: const Icon(Icons.content_copy),
               validator: (String? value) {
                 if(value!.isEmpty){
-                  return 'Ingresar la patente';
+                  return 'Ingrese la patente';
                 }
               },
             ),
@@ -119,10 +125,17 @@ class _CarFormState extends State<CarForm> {
               icon: const Icon(Icons.color_lens),
               validator: (String? value) {
                 if(value!.isEmpty){
-                  return 'Ingresar el color';
+                  return 'Ingrese el color';
                 }
               },
             ),
+            const SizedBox(height: 15),
+            ElevatedButton(
+              onPressed: () {
+                if( !ownerFormProvider.isValidForm()) return;
+              },
+              child: const Text('Aceptar'),
+            )
           ],
         )
       ),

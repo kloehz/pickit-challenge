@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:pickit/widgets/avatar.dart';
 
 class HomePage extends StatelessWidget {
   const HomePage({ Key? key }) : super(key: key);
@@ -16,24 +17,6 @@ class HomePage extends StatelessWidget {
         child: ListView (
           clipBehavior: Clip.none,
           children: const [
-              _ItemContainer(),
-              _ItemContainer(),
-              _ItemContainer(),
-              _ItemContainer(),
-              _ItemContainer(),
-              _ItemContainer(),
-              _ItemContainer(),
-              _ItemContainer(),
-              _ItemContainer(),
-              _ItemContainer(),
-              _ItemContainer(),
-              _ItemContainer(),
-              _ItemContainer(),
-              _ItemContainer(),
-              _ItemContainer(),
-              _ItemContainer(),
-              _ItemContainer(),
-              _ItemContainer(),
               _ItemContainer(),
           ],
         ),
@@ -69,14 +52,9 @@ class _ItemContainer extends StatelessWidget {
         child: Row(
           mainAxisAlignment: MainAxisAlignment.start,
           children: [
-            Container(
-              height: 50,
-              width: 50,
-              margin: const EdgeInsets.only(right: 20),
-              decoration: const BoxDecoration (
-                shape: BoxShape.circle,
-                color: Colors.red,
-              ),
+            const Hero(
+              tag: 'avatarTag',
+              child: Avatar(height: 50, width: 50, margin: EdgeInsets.only(right: 20))
             ),
             Flexible(
               child: Column(

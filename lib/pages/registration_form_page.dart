@@ -25,7 +25,6 @@ class RegistrationForm extends StatelessWidget {
   }
 }
 
-
 class CarForm extends StatefulWidget {
   const CarForm({ Key? key }) : super(key: key);
 

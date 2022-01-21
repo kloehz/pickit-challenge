@@ -5,6 +5,7 @@ import 'package:pickit/themes/colors.dart';
 
 import 'package:animate_do/animate_do.dart';
 import 'package:pickit/widgets/avatar.dart';
+import 'package:pickit/widgets/checkbox_service.dart';
 import 'package:provider/provider.dart';
 
 class CarDetails extends StatelessWidget {
@@ -33,9 +34,20 @@ class CarDetails extends StatelessWidget {
                   ),
                   Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
-                    children: const [
-                      Text('Guido Cotelesso ', style: TextStyle(fontSize: 28, color: Colors.white),),
-                      Text('Chevrolet Corsa', style: TextStyle(fontSize: 24, color: Colors.white),),
+                    children: [
+                      Hero(
+                        tag: 'vehicleOwnerTag',
+                        child: Material(
+                          type: MaterialType.transparency,
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: const [
+                              Text('Guido Cotelesso ', style: TextStyle(fontSize: 28, color: Colors.white),),
+                              Text('Chevrolet Corsa', style: TextStyle(fontSize: 24, color: Colors.white),),
+                            ],
+                          ),
+                        ),
+                      ),
                       SizedBox(height: 20),
                       Text('Pat: ABC123', style: TextStyle(fontSize: 24, color: Colors.white),),
                       Text('Mod: 0000', style: TextStyle(fontSize: 24, color: Colors.white),),
@@ -69,7 +81,7 @@ class _NewServiceButton extends StatelessWidget {
         height: 50,
         child: ElevatedButton(
           child: const Text('Nuevo Service', style: TextStyle(fontSize: 16)),
-          onPressed: (){},
+          onPressed: () => Navigator.pushNamed(context, 'newService'),
           style: ButtonStyle(
             backgroundColor: MaterialStateProperty.all<Color>(primaryColor),
             shape: MaterialStateProperty.all<RoundedRectangleBorder>(
@@ -116,7 +128,7 @@ class _ServiceInformation extends StatelessWidget {
             const Divider(thickness: 2),
             Column(
               children: servicesList.entries.map((item) {
-              return _CheckBoxService(
+              return CheckBoxService(
                 value: item.value['state'],
                 serviceText: item.value['description']
               );
@@ -125,30 +137,6 @@ class _ServiceInformation extends StatelessWidget {
           ],
         )
       ),
-    );
-  }
-}
-
-class _CheckBoxService extends StatelessWidget {
-
-  final bool value;
-  final String serviceText;
-
-  const _CheckBoxService({
-    Key? key,
-    required this.value,
-    required this.serviceText
-  }) : super(key:key);
-
-  @override
-  Widget build(BuildContext context) {
-
-    return CheckboxListTile(
-      onChanged: (state) {},
-      value: value,
-      title: Text(serviceText),
-      controlAffinity: ListTileControlAffinity.leading,
-      activeColor: primaryColor,
     );
   }
 }

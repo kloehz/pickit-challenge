@@ -6,5 +6,6 @@ Map<String, WidgetBuilder> getRoutes() {
     'home': (context) => const HomePage(),
     'carDetails': ( _ ) => const CarDetails(),
     'newCar': ( _ ) => const RegistrationForm(),
+    'newService': ( _ ) => const NewServicePage(),
   };
 }

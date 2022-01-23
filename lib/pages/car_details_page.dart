@@ -15,8 +15,24 @@ class CarDetails extends StatelessWidget {
   Widget build(BuildContext context) {
 
     return Scaffold(
-      appBar: AppBar(),
-      floatingActionButton: const _NewServiceButton(),
+      appBar: AppBar(
+        title: const Text('Detalles')
+      ),
+      floatingActionButton: SizedBox(
+        height: 50,
+        child: ElevatedButton(
+          child: const Text('Nuevo Service', style: TextStyle(fontSize: 16)),
+          onPressed: () => Navigator.pushNamed(context, 'newService'),
+          style: ButtonStyle(
+            backgroundColor: MaterialStateProperty.all<Color>(primaryColor),
+            shape: MaterialStateProperty.all<RoundedRectangleBorder>(
+              RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(20)
+              )
+            )
+          )
+        ),
+      ),
       body: Stack(
         alignment: Alignment.bottomCenter,
         children: [
@@ -50,7 +66,6 @@ class CarDetails extends StatelessWidget {
                       ),
                       SizedBox(height: 20),
                       Text('Pat: ABC123', style: TextStyle(fontSize: 24, color: Colors.white),),
-                      Text('Mod: 0000', style: TextStyle(fontSize: 24, color: Colors.white),),
                       Text('Color: Rojo', style: TextStyle(fontSize: 24, color: Colors.white),),
                     ],
                   )
@@ -58,39 +73,8 @@ class CarDetails extends StatelessWidget {
               ),
             ),
           ),
-          ChangeNotifierProvider(
-            create: ( _ ) => ServicesListProvider(),
-            child: _ServiceInformation()
-          )
+          _ServiceInformation(),
         ],
-      ),
-    );
-  }
-}
-
-class _NewServiceButton extends StatelessWidget {
-
-  const _NewServiceButton({
-    Key? key,
-  }) : super(key: key);
-
-  @override
-  Widget build(BuildContext context) {
-    return FadeInRight(
-      child: SizedBox(
-        height: 50,
-        child: ElevatedButton(
-          child: const Text('Nuevo Service', style: TextStyle(fontSize: 16)),
-          onPressed: () => Navigator.pushNamed(context, 'newService'),
-          style: ButtonStyle(
-            backgroundColor: MaterialStateProperty.all<Color>(primaryColor),
-            shape: MaterialStateProperty.all<RoundedRectangleBorder>(
-              RoundedRectangleBorder(
-                borderRadius: BorderRadius.circular(20)
-              )
-            )
-          )
-        ),
       ),
     );
   }

@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_speed_dial/flutter_speed_dial.dart';
+import 'package:pickit/themes/colors.dart';
 import 'package:pickit/widgets/avatar.dart';
 
 class HomePage extends StatelessWidget {
@@ -7,11 +9,32 @@ class HomePage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(),
-      floatingActionButton: FloatingActionButton(
-        onPressed: () => Navigator.pushNamed(context, 'newCar'),
-        child: const Icon(Icons.add),
+      appBar: AppBar(
+        title: const Text('Vehiculos')
       ),
+      floatingActionButton: SpeedDial(
+        icon: Icons.add,
+        buttonSize: const Size(65.0, 65.0),
+        childrenButtonSize: const Size(60.0, 60.0),
+        children: [
+          SpeedDialChild(
+            child: const Icon(Icons.person_add, size: 30),
+            backgroundColor: secondaryColor,
+            foregroundColor: Colors.white,
+            onTap: () => Navigator.pushNamed(context, 'newOwner')
+          ),
+          SpeedDialChild(
+            child: const Icon(Icons.car_repair, size: 37),
+            backgroundColor: secondaryColor,
+            foregroundColor: Colors.white,
+            onTap: () => Navigator.pushNamed(context, 'newCar')
+          )
+        ],
+      ),
+      // FloatingActionButton(
+      //   onPressed: () => Navigator.pushNamed(context, 'newCar'),
+      //   child: const Icon(Icons.add),
+      // ),
       body: Container (
         margin: const EdgeInsets.symmetric(horizontal: 20, vertical: 20),
         child: ListView (

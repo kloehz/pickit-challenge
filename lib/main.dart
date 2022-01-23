@@ -1,4 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:pickit/services/register_service.dart';
+
+import 'package:provider/provider.dart';
+
+import 'package:pickit/providers/providers.dart';
 import 'package:pickit/routes/routes.dart';
 import 'package:pickit/themes/main_theme.dart';
 
@@ -9,11 +14,18 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      title: 'Pick It',
-      routes: getRoutes(),
-      initialRoute: 'home',
-      theme: mainTheme()
+    return MultiProvider(
+      providers: [
+        ChangeNotifierProvider(create: ( _ ) => OwnerProvider()),
+        ChangeNotifierProvider(create: ( _ ) => ServicesListProvider()),
+        ChangeNotifierProvider(create: ( _ ) => RegisterService())
+      ],
+      child: MaterialApp(
+        title: 'Pick It',
+        routes: getRoutes(),
+        initialRoute: 'home',
+        theme: mainTheme()
+      ),
     );
   }
 }

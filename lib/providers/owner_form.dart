@@ -5,8 +5,10 @@ class OwnerProvider with ChangeNotifier {
   GlobalKey<FormState> formKey = GlobalKey<FormState>();
 
   String name = '';
-  String subName = '';
-  int phone = 0;
+  String lastName = '';
+  int? phone;
+  int docNumber = 0;
+
   String brand = '';
   String model = '';
   int year = 0;

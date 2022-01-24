@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:pickit/models/new_owner_model.dart';
 import 'package:pickit/services/services.dart';
 
 class RegisterService with ChangeNotifier {

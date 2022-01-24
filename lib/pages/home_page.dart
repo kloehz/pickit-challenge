@@ -1,5 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_speed_dial/flutter_speed_dial.dart';
+import 'package:pickit/models/vehicles_model.dart';
+import 'package:pickit/pages/car_details_page.dart';
+
+import 'package:provider/provider.dart';
+
+import 'package:pickit/services/get_vehicles.dart';
 import 'package:pickit/themes/colors.dart';
 import 'package:pickit/widgets/avatar.dart';
 
@@ -8,6 +14,9 @@ class HomePage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+
+    final vehiclesList = Provider.of<GetVehicles>(context).vehiclesList;
+
     return Scaffold(
       appBar: AppBar(
         title: const Text('Vehiculos')
@@ -31,32 +40,54 @@ class HomePage extends StatelessWidget {
           )
         ],
       ),
-      // FloatingActionButton(
-      //   onPressed: () => Navigator.pushNamed(context, 'newCar'),
-      //   child: const Icon(Icons.add),
-      // ),
-      body: Container (
-        margin: const EdgeInsets.symmetric(horizontal: 20, vertical: 20),
-        child: ListView (
-          clipBehavior: Clip.none,
-          children: const [
-              _ItemContainer(),
-          ],
-        ),
+      body: vehiclesList.isNotEmpty
+        ? _ItemsList(vehicles: vehiclesList)
+        : const Center(child: CircularProgressIndicator()),
+    );
+  }
+}
+
+class _ItemsList extends StatelessWidget {
+
+  final List<Vehicle> vehicles;
+
+  const _ItemsList({
+    Key? key,
+    required this.vehicles,
+  }) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Container (
+      margin: const EdgeInsets.symmetric(horizontal: 20, vertical: 20),
+      child: ListView.builder(
+        itemCount: vehicles.length,
+        clipBehavior: Clip.none,
+        itemBuilder: (context, index) {
+          return _ItemContainer(vehicle: vehicles[index]);
+        },
       ),
     );
   }
 }
 
 class _ItemContainer extends StatelessWidget {
+
+  final Vehicle vehicle;
+
   const _ItemContainer({
     Key? key,
+    required this.vehicle,
   }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
-      onTap: () => Navigator.pushNamed(context, 'carDetails'),
+      onTap: () => Navigator.of(context).push(
+        MaterialPageRoute(builder: (context) {
+          return CarDetails(vehicle: vehicle);
+        })
+      ),
       child: Container(
         decoration: BoxDecoration(
           color: Colors.white,
@@ -75,19 +106,19 @@ class _ItemContainer extends StatelessWidget {
         child: Row(
           mainAxisAlignment: MainAxisAlignment.start,
           children: [
-            const Hero(
-              tag: 'avatarTag',
-              child: Avatar(height: 50, width: 50, margin: EdgeInsets.only(right: 20))
+            Hero(
+              tag: vehicle.patent,
+              child: const Avatar(height: 50, width: 50, margin: EdgeInsets.only(right: 20))
             ),
             Flexible(
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
-                children: const [
-                  Text('Vehiculo: ABC123', style: TextStyle(
+                children: [
+                  Text('${vehicle.brand} ${vehicle.model}', style: const TextStyle(
                     fontSize: 22
                   )),
-                  Text('Guido leonel Cotelesso',
-                    style: TextStyle(fontSize: 20),
+                  Text('${vehicle.owner.lastName} ${vehicle.owner.name}',
+                    style: const TextStyle(fontSize: 20),
                     overflow: TextOverflow.ellipsis
                   )
                 ],

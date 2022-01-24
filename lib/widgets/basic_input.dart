@@ -1,7 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:pickit/providers/providers.dart';
 import 'package:pickit/themes/colors.dart';
-import 'package:provider/provider.dart';
 
 class BasicInput extends StatelessWidget {
 
@@ -20,8 +18,6 @@ class BasicInput extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-
-    final ownerFormProvider = Provider.of<OwnerProvider>(context);
 
     return Container(
       margin: const EdgeInsets.symmetric(vertical: 12),

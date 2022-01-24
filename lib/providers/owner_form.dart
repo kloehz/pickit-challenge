@@ -23,6 +23,11 @@ class OwnerProvider with ChangeNotifier {
     notifyListeners();
   }
 
+  set setColor(String color) {
+    this.color = color;
+    notifyListeners();
+  }
+
   bool isValidForm() {
     return formKey.currentState?.validate() ?? false;
   }

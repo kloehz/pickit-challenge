@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:pickit/models/vehicles_model.dart';
+import 'package:pickit/pages/pages.dart';
 import 'package:pickit/providers/services_list.dart';
 
 import 'package:pickit/themes/colors.dart';
@@ -9,10 +11,15 @@ import 'package:pickit/widgets/checkbox_service.dart';
 import 'package:provider/provider.dart';
 
 class CarDetails extends StatelessWidget {
-  const CarDetails({ Key? key }) : super(key: key);
+
+  final Vehicle vehicle;
+
+  const CarDetails({ Key? key, required this.vehicle }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
+
+    final size = MediaQuery.of(context).size;
 
     return Scaffold(
       appBar: AppBar(
@@ -22,7 +29,11 @@ class CarDetails extends StatelessWidget {
         height: 50,
         child: ElevatedButton(
           child: const Text('Nuevo Service', style: TextStyle(fontSize: 16)),
-          onPressed: () => Navigator.pushNamed(context, 'newService'),
+          onPressed: () => Navigator.of(context).push(
+            MaterialPageRoute(builder: (context) {
+              return NewServicePage(vehicle: vehicle);
+            })
+          ),
           style: ButtonStyle(
             backgroundColor: MaterialStateProperty.all<Color>(primaryColor),
             shape: MaterialStateProperty.all<RoundedRectangleBorder>(
@@ -44,29 +55,37 @@ class CarDetails extends StatelessWidget {
               child: Row(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  const Hero(
-                    tag: 'avatarTag',
-                    child: Avatar(height: 100, width: 100, margin: EdgeInsets.only(right: 15))
+                  Hero(
+                    tag: vehicle.patent,
+                    child: const Avatar(height: 100, width: 100, margin: EdgeInsets.only(right: 15))
                   ),
                   Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Hero(
-                        tag: 'vehicleOwnerTag',
+                        tag: vehicle.owner.docNumber,
                         child: Material(
                           type: MaterialType.transparency,
                           child: Column(
                             crossAxisAlignment: CrossAxisAlignment.start,
-                            children: const [
-                              Text('Guido Cotelesso ', style: TextStyle(fontSize: 28, color: Colors.white),),
-                              Text('Chevrolet Corsa', style: TextStyle(fontSize: 24, color: Colors.white),),
+                            children: [
+                              SizedBox(
+                                // TODO: Fix it
+                                width: size.width * 0.6,
+                                child: Text(
+                                  '${vehicle.owner.lastName} ${vehicle.owner.name}', 
+                                  style: const TextStyle(fontSize: 28, color: Colors.white),
+                                  overflow: TextOverflow.ellipsis
+                                ),
+                              ),
+                              Text('${vehicle.brand} ${vehicle.model}', style: const TextStyle(fontSize: 24, color: Colors.white),),
                             ],
                           ),
                         ),
                       ),
-                      SizedBox(height: 20),
-                      Text('Pat: ABC123', style: TextStyle(fontSize: 24, color: Colors.white),),
-                      Text('Color: Rojo', style: TextStyle(fontSize: 24, color: Colors.white),),
+                      const SizedBox(height: 20),
+                      Text('Pat: ${vehicle.patent}', style: const TextStyle(fontSize: 24, color: Colors.white),),
+                      Text('Color: ${vehicle.color}', style: const TextStyle(fontSize: 24, color: Colors.white),),
                     ],
                   )
                 ]

@@ -1,16 +1,17 @@
 import 'package:flutter/material.dart';
+import 'package:pickit/models/vehicles_model.dart';
 
-import 'package:flutter_colorpicker/flutter_colorpicker.dart';
 import 'package:pickit/widgets/color_picker.dart';
-import 'package:provider/provider.dart';
 
-import 'package:pickit/providers/services_list.dart';
 import 'package:pickit/themes/colors.dart';
 import 'package:pickit/widgets/avatar.dart';
 import 'package:pickit/widgets/checkbox_service.dart';
 
 class NewServicePage extends StatelessWidget {
-  const NewServicePage({ Key? key }) : super(key: key);
+
+  final Vehicle vehicle;
+
+  const NewServicePage({ Key? key, required this.vehicle }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -50,10 +51,10 @@ class NewServicePage extends StatelessWidget {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.center,
               children: [
-                const Hero(tag: 'avatarTag', child: Avatar(height: 100, width: 130)),
+                Hero(tag: vehicle.patent, child: const Avatar(height: 100, width: 130)),
                 const SizedBox(height: 15),
                 Hero(
-                  tag: 'vehicleOwnerTag',
+                  tag: vehicle.owner.docNumber,
                   child: Material(
                     type: MaterialType.transparency,
                     child: Column(
@@ -114,7 +115,7 @@ class ServicesList extends StatelessWidget {
         ),
         ElevatedButton(
           child: const Text('Seleccione un color'),
-          onPressed: () => showMaterialDialog(context),
+          onPressed: () => showColorPicker(context),
           style: ButtonStyle(
             backgroundColor: MaterialStateProperty.all<Color>(primaryColor),
           )

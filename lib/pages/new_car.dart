@@ -83,7 +83,7 @@ class _SelectColor extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
-      onTap: () => showMaterialDialog(context),
+      onTap: () => showColorPicker(context),
       child: TextFormField(
         enabled: false,
         decoration: const InputDecoration(

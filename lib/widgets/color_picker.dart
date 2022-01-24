@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_colorpicker/flutter_colorpicker.dart';
 
-void showMaterialDialog(BuildContext context) {
+void showColorPicker(BuildContext context) {
 
   void changeColor(Color color){
     Navigator.of(context).pop();

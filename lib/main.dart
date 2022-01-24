@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:pickit/services/get_vehicles.dart';
 import 'package:pickit/services/register_service.dart';
 
 import 'package:provider/provider.dart';
@@ -18,7 +19,8 @@ class MyApp extends StatelessWidget {
       providers: [
         ChangeNotifierProvider(create: ( _ ) => OwnerProvider()),
         ChangeNotifierProvider(create: ( _ ) => ServicesListProvider()),
-        ChangeNotifierProvider(create: ( _ ) => RegisterService())
+        ChangeNotifierProvider(create: ( _ ) => RegisterService()),
+        ChangeNotifierProvider(create: ( _ ) => GetVehicles()),
       ],
       child: MaterialApp(
         title: 'Pick It',

@@ -32,6 +32,7 @@ class GetVehicles with ChangeNotifier {
         throw res.msg;
       }
     } catch (err) {
+      print(err);
       if( err.runtimeType == String ){
         rethrow;
       } else {

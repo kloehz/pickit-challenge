@@ -5,8 +5,8 @@ import 'package:pickit/services/register_service.dart';
 import 'package:provider/provider.dart';
 
 import 'package:pickit/providers/providers.dart';
-import 'package:pickit/routes/routes.dart';
 import 'package:pickit/themes/main_theme.dart';
+import 'package:pickit/routes/routes.dart' as route;
 
 void main() => runApp(const MyApp());
 
@@ -24,8 +24,8 @@ class MyApp extends StatelessWidget {
       ],
       child: MaterialApp(
         title: 'Pick It',
-        routes: getRoutes(),
-        initialRoute: 'home',
+        onGenerateRoute: route.controller,
+        initialRoute: route.homePage,
         theme: mainTheme()
       ),
     );

@@ -29,11 +29,7 @@ class CarDetails extends StatelessWidget {
         height: 50,
         child: ElevatedButton(
           child: const Text('Nuevo Service', style: TextStyle(fontSize: 16)),
-          onPressed: () => Navigator.of(context).push(
-            MaterialPageRoute(builder: (context) {
-              return NewServicePage(vehicle: vehicle);
-            })
-          ),
+          onPressed: () => Navigator.pushNamed(context, 'newService', arguments: vehicle),
           style: ButtonStyle(
             backgroundColor: MaterialStateProperty.all<Color>(primaryColor),
             shape: MaterialStateProperty.all<RoundedRectangleBorder>(
@@ -92,7 +88,7 @@ class CarDetails extends StatelessWidget {
               ),
             ),
           ),
-          _ServiceInformation(),
+          _ServiceInformation(vehicle: vehicle),
         ],
       ),
     );
@@ -100,6 +96,11 @@ class CarDetails extends StatelessWidget {
 }
 
 class _ServiceInformation extends StatelessWidget {
+
+  final Vehicle vehicle;
+
+  const _ServiceInformation({ Key? key, required this.vehicle }) : super(key: key);
+
 
   @override
   Widget build(BuildContext context) {
@@ -130,12 +131,12 @@ class _ServiceInformation extends StatelessWidget {
             ),
             const Divider(thickness: 2),
             Column(
-              children: servicesList.entries.map((item) {
-              return CheckBoxService(
-                value: item.value['state'],
-                serviceText: item.value['description']
-              );
-            }).toList(),
+              children: vehicle.lastService.toJson().entries.map((item) {
+                return CheckBoxService(
+                  value: item.value.state,
+                  serviceText: item.value.description
+                );
+              }).toList(),
             ),
           ],
         )

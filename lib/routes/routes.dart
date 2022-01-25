@@ -1,12 +1,30 @@
 import 'package:flutter/material.dart';
+import 'package:pickit/models/vehicles_model.dart';
 import 'package:pickit/pages/pages.dart';
 
-Map<String, WidgetBuilder> getRoutes() {
-  return <String, WidgetBuilder>{
-    'home': (context) => const HomePage(),
-    // 'carDetails': ( _ ) => const CarDetails(),
-    'newCar': ( _ ) => const NewCar(),
-    'newOwner': ( _ ) => const NewOwner(),
-    // 'newService': ( _ ) => const NewServicePage(),
-  };
+const String homePage       = 'home';
+const String carDetailsPage = 'carDetails';
+const String newCarPage     = 'newCar';
+const String newOwnerPage   = 'newOwner';
+const String newServicePage = 'newService';
+
+Route<dynamic> controller(RouteSettings settings) {
+  switch (settings.name) {
+    case homePage:
+      return MaterialPageRoute(builder: (context) => const HomePage());
+    case carDetailsPage:
+      return MaterialPageRoute(builder: (context) => CarDetails(
+        vehicle: settings.arguments as Vehicle,
+      ));
+    case newCarPage:
+      return MaterialPageRoute(builder: (context) => const NewCar());
+    case newOwnerPage:
+      return MaterialPageRoute(builder: (context) => const NewOwner());
+    case newServicePage:
+      return MaterialPageRoute(builder: (context) => NewServicePage(
+        vehicle: settings.arguments as Vehicle,
+      ));
+    default:
+      return MaterialPageRoute(builder: (context) => const HomePage());
+  }
 }

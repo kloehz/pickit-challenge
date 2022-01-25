@@ -83,11 +83,7 @@ class _ItemContainer extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
-      onTap: () => Navigator.of(context).push(
-        MaterialPageRoute(builder: (context) {
-          return CarDetails(vehicle: vehicle);
-        })
-      ),
+      onTap: () => Navigator.pushNamed(context, 'carDetails', arguments: vehicle),
       child: Container(
         decoration: BoxDecoration(
           color: Colors.white,

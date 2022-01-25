@@ -78,7 +78,7 @@ class NewServicePage extends StatelessWidget {
                 topRight:  Radius.circular(50)
               )
             ),
-            child: const ServicesList()
+            child: _ServicesList(vehicle: vehicle)
           )
         ],
       ),
@@ -86,41 +86,43 @@ class NewServicePage extends StatelessWidget {
   }
 }
 
-class ServicesList extends StatelessWidget {
-  const ServicesList({
+class _ServicesList extends StatelessWidget {
+
+  final Vehicle vehicle;
+
+  const _ServicesList({
     Key? key,
+    required this.vehicle
   }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
 
-    // final services = Provider.of<ServicesListProvider>(context);
+    List<CheckBoxService> serviceList = [];
+    
+    vehicle.lastService.toJson().entries.map((item) {
+      serviceList.add(CheckBoxService(
+        value: item.value.state,
+        serviceText: item.value.description
+      ));
+    });
 
-    return Column(
-      children: [
-        const CheckBoxService(
-          serviceText: 'Cambio de aceite', value: true
-        ),
-        const CheckBoxService(
-          serviceText: 'Cambio de filtro', value: true
-        ),
-        const CheckBoxService(
-          serviceText: 'Cambio de correa', value: true
-        ),
-        const CheckBoxService(
-          serviceText: 'Revision general', value: true
-        ),
-        const CheckBoxService(
-          serviceText: 'Otros services', value: true
-        ),
-        ElevatedButton(
-          child: const Text('Seleccione un color'),
-          onPressed: () => showColorPicker(context),
-          style: ButtonStyle(
-            backgroundColor: MaterialStateProperty.all<Color>(primaryColor),
-          )
-        ),
-      ],
+    return SingleChildScrollView(
+      child: Column(
+        children: vehicle.lastService.toJson().entries.map((item) {
+            return CheckBoxService(
+              value: item.value.state,
+              serviceText: item.value.description
+            );
+          }).toList()
+          // ElevatedButton(
+          //   child: const Text('Seleccione un color'),
+          //   onPressed: () => showColorPicker(context),
+          //   style: ButtonStyle(
+          //     backgroundColor: MaterialStateProperty.all<Color>(primaryColor),
+          //   )
+          // ),
+      ),
     );
   }
 }
